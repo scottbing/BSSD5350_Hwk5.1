@@ -10,7 +10,7 @@ class Boid {
   PVector acceleration;
   int maxForce;
   int maxSpeed;
-  color _strokeCol;
+  color strokeCol;
   
   Boid() {
     this.position = new PVector(random(width), random(height));
@@ -24,13 +24,24 @@ class Boid {
   
   // Getter
   public color getColor() {
-    return _strokeCol;
+    return strokeCol;
   }
   
   // Setter
-  public void setColor(color c) {
-    this._strokeCol = c;
+  public void setColor(color strokeCol) {
+    this.strokeCol = strokeCol;
   }
+  
+  // Getter
+  public PVector getPosition() {
+    return position;
+  }
+  
+  // Setter
+  public void setPosition(PVector pos) {
+    this.position = position;
+  }
+
 
   void edges() {
     if (this.position.x > width) {
@@ -134,7 +145,7 @@ class Boid {
 
   void show() {
     strokeWeight(2);
-    stroke(_strokeCol);
+    stroke(strokeCol);
     point(this.position.x, this.position.y);
   }
 }

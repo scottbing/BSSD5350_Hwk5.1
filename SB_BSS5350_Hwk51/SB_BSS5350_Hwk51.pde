@@ -3,38 +3,60 @@
 // https://thecodingtrain.com/CodingChallenges/124-flocking-boids.html
 // https://youtu.be/mhjuuHl6qHM
 // https://editor.p5js.org/codingtrain/sketches/ry4XZ8OkN
+HelperFunctions hf = new HelperFunctions();
 
 Boid[] flock;
 color _strokeCol;
+int seedVal;
 
 float alignValue = .5;
 float cohesionValue = 1;
 float seperationValue = 1;
 
 void setup() {
+  size(840, 560);
+  addFlock();
+}
+
+public void addFlock() {
   ColorPalette randomC = new ColorPalette();
   _strokeCol = randomC.getBaseColor();
-  int seedVal = int(random(0,200));
-  //size(640, 360);
-  size(1500, 1300);
+  seedVal = int(random(0,200));
+  print(_strokeCol);
+  //size(1500, 1300);
   background(0);
   int n = 7;
   flock = new Boid[n];
-  flock[n].setColor(_strokeCol);
   for (int i = 0; i < n; i++) {
     flock[i] = new Boid();
-    flock[i].setColor(_strokeCol);
+    flock[i].setPosition(new PVector(mouseX, mouseY));
+  }
+  
+}
+
+void mousePressed() {
+    addFlock(); 
+  }
+ 
+boolean looping = true;
+void keyPressed() {
+  if (key==' ') {
+    if (looping) {
+      //hf.save("img", "["+String.valueOf(seedVal)+"]");
+      saveImage();
+      noLoop();
+    } else {
+      loop();
+    }
+    looping = !looping;
   }
 }
 
-boolean looping = true;
-void mousePressed() {
-  if (looping) {
-    noLoop();
-  } else {
-    loop();
-  }
-  looping = !looping;
+void saveImage() {
+
+  save("name"+"-"+ seedVal +"-.png");
+  hf.save("img", "["+String.valueOf(seedVal)+"]");
+  println("Saved");
 }
 
 void draw() {
@@ -48,7 +70,7 @@ void draw() {
     vertex(boid.position.x, boid.position.y);
     //boid.show();
   }
-  stroke(155,20,155);
+  stroke(_strokeCol);
   noFill();
   endShape(CLOSE);
 }
