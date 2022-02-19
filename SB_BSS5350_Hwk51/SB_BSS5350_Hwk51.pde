@@ -3,6 +3,8 @@
 // https://thecodingtrain.com/CodingChallenges/124-flocking-boids.html
 // https://youtu.be/mhjuuHl6qHM
 // https://editor.p5js.org/codingtrain/sketches/ry4XZ8OkN
+import java.util.Arrays;
+
 HelperFunctions hf = new HelperFunctions();
 
 Boid[] flock;
@@ -29,13 +31,15 @@ public void addFlock() {
   flock = new Boid[n];
   for (int i = 0; i < n; i++) {
     flock[i] = new Boid();
-    flock[i].setPosition(new PVector(mouseX, mouseY));
   }
   
 }
 
 void mousePressed() {
-    addFlock(); 
+  // add a single Boid
+  flock = Arrays.copyOf(flock, flock.length + 1);
+  flock[flock.length-1] = new Boid();
+  flock[flock.length-1].setPosition(new PVector(mouseX, mouseY));
   }
  
 boolean looping = true;
